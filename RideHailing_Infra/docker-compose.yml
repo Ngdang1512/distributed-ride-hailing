@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  # --- Server 1: Hà Nội ---
+  sql_hanoi:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: sql_hanoi
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password123!
+    # Tuyệt đối không thêm dòng volumes hay user: root ở đây
+
+  # --- Server 2: TP.HCM ---
+  sql_hcm:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: sql_hcm
+    ports:
+      - "1434:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password123!
