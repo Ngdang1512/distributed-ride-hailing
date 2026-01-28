@@ -1,0 +1,65 @@
+@model RideHailing.Web.Models.Trip
+@using RideHailing.Web.Models
+
+@{
+    var color = Model.Region switch
+    {
+        Region.HCM => "green",
+        Region.HN  => "blue",
+        Region.DN  => "orange",
+        _          => "gray"
+    };
+}
+
+@{
+    ViewData["Title"] = "Kết quả đặt xe";
+}
+
+<div class="card">
+    <h2 style="margin-bottom: 16px;">✅ Đặt xe thành công</h2>
+
+    <div style="margin-bottom: 12px;">
+        <b>Điểm đón:</b><br />
+        @Model.PickupLocation
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <b>Điểm trả:</b><br />
+        @Model.DropoffLocation
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <b>Khu vực:</b> @Model.Region
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <b>Trạng thái:</b> 
+        <span style="color: green;">
+            @Model.Status
+        </span>
+    </div>
+
+    <hr style="margin: 16px 0;" />
+
+    <h3 style="margin-bottom: 10px;">🚗 Tài xế</h3>
+
+    <p>
+        <b>Tên:</b> @Model.Driver?.Name <br />
+        <b>Xe:</b> @Model.Driver?.VehicleNumber <br />
+        <b>SĐT:</b> @Model.Driver?.Phone
+    </p>
+
+    <div style="margin-top: 20px;">
+        <a href="/Trip/Details/@Model.Id">
+            <button class="btn btn-primary" style="margin-bottom: 10px;">
+                📄 Xem chi tiết chuyến
+            </button>
+        </a>
+
+        <a href="/Trip/Create">
+            <button class="btn">
+                ➕ Đặt chuyến mới
+            </button>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Đặt xe";
+}
+
+<div class="card">
+    <h2 style="margin-bottom: 20px;">🚕 Đặt chuyến xe</h2>
+
+    <form method="post" action="/Trip/Create">
+        <!-- Điểm đón -->
+        <div class="form-group">
+            <label>Điểm đón</label>
+            <input 
+                type="text" 
+                name="PickupLocation" 
+                placeholder="Nhập điểm đón"
+                required />
+        </div>
+
+        <!-- Điểm trả -->
+        <div class="form-group">
+            <label>Điểm trả</label>
+            <input 
+                type="text" 
+                name="DropoffLocation" 
+                placeholder="Nhập điểm đến"
+                required />
+        </div>
+
+        <!-- Khu vực -->
+        <div class="form-group">
+            <label>Khu vực</label>
+            <select name="Region">
+                <option value="HCM">TP. Hồ Chí Minh</option>
+                <option value="HN">Hà Nội</option>
+                <option value="DN">Đà Nẵng</option>
+            </select>
+        </div>
+
+        <!-- Loại xe -->
+        <div class="form-group">
+            <label>Loại xe</label>
+            <select name="VehicleType">
+                <option>Xe máy</option>
+                <option>Xe 4 chỗ</option>
+                <option>Xe 7 chỗ</option>
+            </select>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary">
+            🚀 Đặt xe ngay
+        </button>
+    </form>
+</div>

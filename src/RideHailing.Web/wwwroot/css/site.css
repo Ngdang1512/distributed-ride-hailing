@@ -1,0 +1,224 @@
+/* =========================
+   RESET NHẸ + BASE
+========================= */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #212529;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #adb5bd !important;
+}
+
+/* =========================
+   CONTAINER / LAYOUT
+========================= */
+
+main {
+    min-height: calc(100vh - 140px);
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    border-radius: 14px;
+    border: none;
+    background-color: #ffffff;
+}
+
+.card.shadow-sm {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+/* =========================
+   BADGE (TRẠNG THÁI)
+========================= */
+
+.badge {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 999px;
+}
+
+.badge.bg-success {
+    background-color: #51cf66 !important;
+    color: #ffffff;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-sm {
+    padding: 4px 12px;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary:hover {
+    color: #ffffff;
+}
+
+.btn-outline-secondary:hover {
+    color: #ffffff;
+}
+
+/* =========================
+   LINK (XEM / QUAY LẠI)
+========================= */
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* =========================
+   DETAILS PAGE
+========================= */
+
+dl dt {
+    font-weight: 600;
+    color: #495057;
+}
+
+dl dd {
+    margin-bottom: 0.75rem;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    font-size: 0.9rem;
+    color: #868e96;
+}
+
+/* =========================
+   RESPONSIVE FIX
+========================= */
+
+@media (max-width: 768px) {
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        padding: 0.75rem;
+        background: #ffffff;
+    }
+
+    .table tbody td {
+        display: flex;
+        justify-content: space-between;
+        border: none;
+        padding: 6px 0;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #495057;
+    }
+}
+
+/* =========================
+   TRIP CARD
+========================= */
+
+.trip-card {
+    border-radius: 14px;
+    border: none;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.trip-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Badge đẹp hơn */
+.badge.bg-success {
+    background-color: #51cf66 !important;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+/* Button Xem */
+.btn-outline-primary {
+    border-width: 2px;
+    font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+}

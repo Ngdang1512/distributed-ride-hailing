@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Ride Hailing</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">
+                🚕 RideHailing
+            </a>
+
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Trip" asp-action="Create">Đặt xe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Trip" asp-action="Index">Chuyến đi</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="text-center text-muted py-3">
+        Distributed Ride Hailing Demo · ASP.NET Core MVC
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
