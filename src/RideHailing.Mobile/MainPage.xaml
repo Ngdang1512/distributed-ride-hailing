@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RideHailing.Mobile.MainPage">
+             <Grid RowDefinitions="*, Auto">
+        <Grid Grid.Row="0" BackgroundColor="#e0e0e0">
+            <Label Text="🗺️ KHU VỰC BẢN ĐỒ" 
+                   HorizontalOptions="Center" VerticalOptions="Center" 
+                   TextColor="Gray" FontSize="24" FontAttributes="Bold"/>
+            </Grid>
+
+        <VerticalStackLayout Grid.Row="1" Padding="20" Spacing="10" BackgroundColor="White">
+            
+            <Label Text="📍 Vị trí của bạn (Giả lập)" FontAttributes="Bold" FontSize="16"/>
+            
+            <HorizontalStackLayout Spacing="10">
+                <Entry x:Name="txtLat" Placeholder="Lat" Text="21.0285" WidthRequest="100"/>
+                <Entry x:Name="txtLng" Placeholder="Lng" Text="105.8542" WidthRequest="100"/>
+                <Label Text="(>17 là HN, Dưới 17 là HCM)" VerticalOptions="Center" FontSize="12" TextColor="Gray"/>
+            </HorizontalStackLayout>
+
+            <Label x:Name="lblStatus" Text="Sẵn sàng gọi xe..." TextColor="Gray" HorizontalOptions="Center"/>
+
+            <Button x:Name="btnBook" Text="🚘 ĐẶT XE NGAY" 
+                    BackgroundColor="#00bf63" TextColor="White" HeightRequest="50"
+                    Clicked="OnBookBtnClicked"/>
+
+            <Button x:Name="btnFinish" Text="🏁 HOÀN THÀNH CHUYẾN" 
+                    BackgroundColor="#ff3b30" TextColor="White" HeightRequest="50"
+                    IsVisible="False"
+                    Clicked="OnFinishBtnClicked"/>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

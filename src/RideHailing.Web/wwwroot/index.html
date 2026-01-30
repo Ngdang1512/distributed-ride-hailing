@@ -2,84 +2,178 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ứng Dụng Gọi Xe Phân Tán</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ride Hailing App</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; background-color: #f0f2f5; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { color: #1a73e8; text-align: center; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background-color: #1a73e8; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
-        button:hover { background-color: #1557b0; }
-        #result { margin-top: 20px; padding: 15px; border-radius: 4px; display: none; }
-        .success { background-color: #e6f4ea; color: #1e8e3e; border: 1px solid #1e8e3e; }
-        .error { background-color: #fce8e6; color: #d93025; border: 1px solid #d93025; }
-        .region-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; color: white; margin-left: 10px;}
-        .hn { background-color: #d93025; } /* Đỏ cho HN */
-        .hcm { background-color: #188038; } /* Xanh cho HCM */
+        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f5f5f5; height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Phần Bản đồ chiếm phần lớn màn hình */
+        #map { flex-grow: 1; width: 100%; z-index: 1; }
+
+        /* Panel điều khiển mô phỏng App điện thoại */
+        .app-panel {
+            background: white; padding: 20px; border-radius: 20px 20px 0 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 2;
+            position: relative; margin-top: -20px;
+        }
+        h2 { margin: 0 0 15px 0; font-size: 18px; color: #333; text-align: center;}
+        
+        .location-info { display: flex; gap: 10px; margin-bottom: 15px; background: #f8f9fa; padding: 10px; border-radius: 8px;}
+        .coords { font-size: 12px; color: #666; display: flex; flex-direction: column; justify-content: center; }
+        
+        button {
+            width: 100%; padding: 14px; border: none; border-radius: 12px;
+            font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .btn-book { background-color: #00bf63; color: white; } /* Màu Grab */
+        .btn-book:active { transform: scale(0.98); }
+        .btn-finish { background-color: #ff3b30; color: white; display: none; margin-top: 10px;}
+
+        /* Hiển thị trạng thái */
+        #status-bar { 
+            display: none; margin-top: 15px; padding: 10px; border-radius: 8px; 
+            text-align: center; font-size: 14px; 
+        }
+        .success { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+        .error { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🚖 Đặt Xe Thông Minh</h1>
-        <div class="form-group">
-            <label>Vị trí đón (Mô phỏng)</label>
-            <input type="text" id="pickup" value="Hồ Gươm, Hà Nội">
-        </div>
-        <div class="form-group">
-            <label>Vĩ độ (Lat)</label>
-            <input type="number" id="lat" step="0.0001" value="21.0285">
-            <small><i>> 17 là Miền Bắc, < 17 là Miền Nam</i></small>
-        </div>
-        <div class="form-group">
-            <label>Kinh độ (Lng)</label>
-            <input type="number" id="lng" step="0.0001" value="105.8542">
-        </div>
-        <button onclick="bookRide()">🚗 Đặt Xe Ngay</button>
 
-        <div id="result"></div>
+    <div id="map"></div>
+
+    <div class="app-panel">
+        <h2>🚖 Đặt xe RideHailing</h2>
+        
+        <div class="location-info">
+            <div style="font-size: 24px;">📍</div>
+            <div class="coords">
+                <strong id="address-text">Đang chọn vị trí...</strong>
+                <span>Lat: <span id="lat">21.0285</span> | Lng: <span id="lng">105.8542</span></span>
+            </div>
+        </div>
+
+        <button id="btnBook" class="btn-book" onclick="bookRide()">Đặt xe ngay</button>
+        <button id="btnFinish" class="btn-finish" onclick="finishTrip()">🏁 Hoàn thành chuyến</button>
+
+        <div id="status-bar"></div>
     </div>
 
     <script>
-        async function bookRide() {
-            const resultDiv = document.getElementById('result');
-            resultDiv.style.display = 'block';
-            resultDiv.className = '';
-            resultDiv.innerHTML = 'Đang tìm tài xế...';
+        // 1. Khởi tạo bản đồ (Mặc định Hồ Gươm)
+        var map = L.map('map').setView([21.0285, 105.8542], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-            const payload = {
-                lat: parseFloat(document.getElementById('lat').value),
-                lng: parseFloat(document.getElementById('lng').value),
-                pickupLocation: document.getElementById('pickup').value
-            };
+        // Tạo Marker (Ghim đỏ) có thể kéo thả
+        var marker = L.marker([21.0285, 105.8542], {draggable: true}).addTo(map);
+
+        // Sự kiện: Khi kéo marker -> Cập nhật tọa độ
+        marker.on('dragend', function(event) {
+            var position = marker.getLatLng();
+            updateUI(position.lat, position.lng);
+        });
+
+        // Sự kiện: Khi bấm vào bản đồ -> Di chuyển marker tới đó
+        map.on('click', function(e) {
+            marker.setLatLng(e.latlng);
+            updateUI(e.latlng.lat, e.latlng.lng);
+        });
+
+        function updateUI(lat, lng) {
+            // Làm tròn số đẹp
+            document.getElementById('lat').innerText = lat.toFixed(4);
+            document.getElementById('lng').innerText = lng.toFixed(4);
+            
+            // Logic giả lập địa chỉ
+            var address = "Vị trí đã chọn";
+            if (lat > 17) address = "Khu vực Miền Bắc (HN)";
+            else address = "Khu vực Miền Nam (HCM)";
+            document.getElementById('address-text').innerText = address;
+        }
+
+        // --- LOGIC GỌI API ---
+        let currentTripId = null;
+        let currentRegion = null;
+
+        async function bookRide() {
+            const lat = parseFloat(document.getElementById('lat').innerText);
+            const lng = parseFloat(document.getElementById('lng').innerText);
+            const statusDiv = document.getElementById('status-bar');
+
+            statusDiv.style.display = 'block';
+            statusDiv.className = '';
+            statusDiv.innerHTML = '🔄 Đang tìm tài xế gần bạn...';
 
             try {
                 const response = await fetch('/api/Booking/book', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({ 
+                        lat: lat, 
+                        lng: lng, 
+                        pickupLocation: lat > 17 ? "Hà Nội" : "Sài Gòn" 
+                    })
                 });
-
                 const data = await response.json();
 
                 if (response.ok) {
-                    const badgeClass = data.region === 'HN' ? 'hn' : 'hcm';
-                    resultDiv.className = 'success';
-                    resultDiv.innerHTML = `
-                        <h3>✅ Đặt xe thành công!</h3>
-                        <p><b>Tài xế:</b> ${data.driver}</p>
-                        <p><b>Khu vực:</b> <span class="region-badge ${badgeClass}">${data.region}</span></p>
-                        <p><b>Mã chuyến:</b> ${data.tripId}</p>
-                    `;
+                    statusDiv.className = 'success';
+                    statusDiv.innerHTML = `✅ <b>Tài xế đến rồi!</b><br>${data.driver} (${data.region})`;
+                    
+                    // Lưu thông tin chuyến đi để lát nữa trả khách
+                    currentTripId = data.tripId;
+                    currentRegion = data.region;
+
+                    // Đổi nút sang Trả khách
+                    document.getElementById('btnBook').style.display = 'none';
+                    document.getElementById('btnFinish').style.display = 'block';
                 } else {
-                    resultDiv.className = 'error';
-                    resultDiv.innerHTML = `❌ Lỗi: ${data.message || 'Không thể đặt xe'}`;
+                    statusDiv.className = 'error';
+                    statusDiv.innerHTML = `❌ ${data.message}`;
                 }
-            } catch (error) {
-                resultDiv.className = 'error';
-                resultDiv.innerHTML = `❌ Lỗi kết nối: ${error.message}`;
+            } catch (err) {
+                statusDiv.className = 'error';
+                statusDiv.innerHTML = `❌ Lỗi kết nối Server`;
+            }
+        }
+
+        async function finishTrip() {
+            if (!currentTripId) return;
+            const statusDiv = document.getElementById('status-bar');
+            statusDiv.innerHTML = '🔄 Đang thanh toán...';
+
+            try {
+                const response = await fetch('/api/Booking/finish', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        tripId: currentTripId, 
+                        region: currentRegion,
+                        endLat: parseFloat(document.getElementById('lat').innerText),
+                        endLng: parseFloat(document.getElementById('lng').innerText)
+                    })
+                });
+
+                if (response.ok) {
+                    statusDiv.className = 'success';
+                    statusDiv.innerHTML = `✅ <b>Chuyến đi hoàn thành!</b><br>Cảm ơn quý khách.`;
+                    
+                    // Reset nút về ban đầu
+                    document.getElementById('btnBook').style.display = 'block';
+                    document.getElementById('btnFinish').style.display = 'none';
+                    currentTripId = null;
+                } else {
+                    statusDiv.className = 'error';
+                    statusDiv.innerHTML = `❌ Lỗi khi trả khách`;
+                }
+            } catch (err) {
+                statusDiv.className = 'error';
+                statusDiv.innerHTML = `❌ Lỗi kết nối`;
             }
         }
     </script>

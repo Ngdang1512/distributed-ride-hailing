@@ -149,7 +149,6 @@
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/rjsmrazor.dswa.cache.json
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/scopedcss/bundle/RideHailing.Web.styles.css
-/Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/compressed/oiv1envab6-{0}-tuswvvx0y5-tuswvvx0y5.gz
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/staticwebassets.build.json
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/staticwebassets.build.json.cache
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/staticwebassets.development.json
@@ -161,3 +160,4 @@
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/RideHailing.Web.pdb
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/RideHailing.Web.genruntimeconfig.cache
 /Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/ref/RideHailing.Web.dll
+/Users/admin/Code/distributed-ride-hailing/src/RideHailing.Web/obj/Debug/net10.0/compressed/oiv1envab6-{0}-ttmtwxtmkd-ttmtwxtmkd.gz
