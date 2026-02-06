@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RideHailing.Mobile.HomePage"
+             Title="Trang chủ"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#f8f8f8">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="0,0,0,20">
+            
+            <Grid ColumnDefinitions="*, Auto" Padding="20,10" BackgroundColor="White"> <VerticalStackLayout Grid.Column="0">
+                    <Label Text="Xin chào, Nguyễn Đăng" FontAttributes="Bold" FontSize="18" TextColor="#333"/>
+                    <Label Text="Thành viên hạng Vàng" FontSize="12" TextColor="#00bf63"/>
+                </VerticalStackLayout>
+                
+                <HorizontalStackLayout Grid.Column="1" Spacing="5">
+                    <Label Text="☁️ 27°C" VerticalOptions="Center" TextColor="Gray"/>
+                </HorizontalStackLayout>
+            </Grid>
+
+            <Frame Margin="20,0" Padding="15,10" CornerRadius="25" BackgroundColor="White" HasShadow="True">
+                <Grid ColumnDefinitions="30, *, Auto">
+                    <Label Text="🔍" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="Bạn muốn đi đâu?" VerticalOptions="Center" TextColor="Gray">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSearchTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Grid.Column="2" Text="📅 Hẹn giờ" TextColor="#d32f2f" FontAttributes="Bold"/>
+                </Grid>
+                <Frame.GestureRecognizers>
+                     <TapGestureRecognizer Tapped="OnSearchTapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*,*,*,*" Padding="10" RowSpacing="20">
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                    <ImageButton Source="car_icon.png" HeightRequest="50" WidthRequest="50" BackgroundColor="#e0f2f1" CornerRadius="15" Clicked="OnCarServiceClicked"/>
+                    <Label Text="Ô tô" HorizontalOptions="Center" FontSize="12" Margin="0,5,0,0" TextColor="Black"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                    <ImageButton Source="bike_icon.png" HeightRequest="50" WidthRequest="50" BackgroundColor="#e0f2f1" CornerRadius="15"/>
+                    <Label Text="Xe máy" HorizontalOptions="Center" FontSize="12" Margin="0,5,0,0" TextColor="Black"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
+                    <ImageButton Source="delivery_icon.png" HeightRequest="50" WidthRequest="50" BackgroundColor="#fff3e0" CornerRadius="15"/>
+                    <Label Text="Giao hàng" HorizontalOptions="Center" FontSize="12" Margin="0,5,0,0" TextColor="Black"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="0" Grid.Column="3" HorizontalOptions="Center">
+                    <ImageButton Source="food_icon.png" HeightRequest="50" WidthRequest="50" BackgroundColor="#fff3e0" CornerRadius="15"/>
+                    <Label Text="Đồ ăn" HorizontalOptions="Center" FontSize="12" Margin="0,5,0,0" TextColor="Black"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
+                    <ImageButton Source="bus_icon.png" HeightRequest="50" WidthRequest="50" BackgroundColor="#e8f5e9" CornerRadius="15"/>
+                    <Label Text="Bus" HorizontalOptions="Center" FontSize="12" Margin="0,5,0,0" TextColor="Black"/>
+                </VerticalStackLayout>
+                
+                </Grid>
+
+            <Frame Margin="15,10" Padding="0" CornerRadius="10" HeightRequest="150" IsClippedToBounds="True">
+                <Image Source="banner_promo.png" Aspect="AspectFill" BackgroundColor="#00bf63"/>
+                </Frame>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

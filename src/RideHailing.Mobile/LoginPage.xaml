@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RideHailing.Mobile.LoginPage"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="*, Auto">
+        <VerticalStackLayout Grid.Row="0" VerticalOptions="Center" Spacing="20">
+            <Image Source="dotnet_bot.png" 
+                   HeightRequest="150" 
+                   HorizontalOptions="Center" />
+            
+            <Label Text="Ride Hailing App" 
+                   FontSize="28" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center" 
+                   TextColor="#00bf63"/>
+            
+            <Label Text="Đặt xe nhanh chóng - Di chuyển an toàn" 
+                   FontSize="16" 
+                   TextColor="Gray" 
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1" StrokeShape="RoundRectangle 30,30,0,0" BackgroundColor="#f5f5f5" Padding="20">
+            <VerticalStackLayout Spacing="15">
+                <Label Text="Xin chào!" FontSize="22" FontAttributes="Bold" TextColor="Black"/>
+                <Label Text="Nhập số điện thoại để tiếp tục" TextColor="Gray"/>
+
+                <Frame Padding="0" BorderColor="Transparent" BackgroundColor="White" CornerRadius="10">
+                    <Entry x:Name="txtPhone" 
+                           Placeholder="Số điện thoại của bạn" 
+                           Keyboard="Telephone"
+                           HeightRequest="50"
+                           TextColor="Black"/>
+                </Frame>
+
+                <Button Text="TIẾP TỤC" 
+                        BackgroundColor="#00bf63" 
+                        TextColor="White" 
+                        HeightRequest="50" 
+                        CornerRadius="25"
+                        FontAttributes="Bold"
+                        Clicked="OnLoginClicked"/>
+                
+                <Label Text="Hoặc đăng nhập bằng" HorizontalOptions="Center" TextColor="Gray" FontSize="12"/>
+                
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                    <Button Text="Google" BackgroundColor="White" TextColor="Black" BorderColor="Gray" BorderWidth="1" WidthRequest="100"/>
+                    <Button Text="Facebook" BackgroundColor="#1877F2" TextColor="White" WidthRequest="100"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
