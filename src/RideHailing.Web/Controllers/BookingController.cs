@@ -16,6 +16,7 @@ namespace RideHailing.Web.Controllers
             _regionService = regionService;
         }
 
+
         // ==========================================
         // API 1: ĐẶT CHUYẾN XE (POST)
         // Dùng để App gọi đặt xe
@@ -119,6 +120,55 @@ namespace RideHailing.Web.Controllers
             }
 
             return Ok(results);
+        }
+        // ==========================================
+        // API 3: HOÀN THÀNH CHUYẾN XE (POST)
+        // ==========================================
+        [HttpPost("finish")]
+        public IActionResult FinishTrip([FromBody] FinishRequest request)
+        {
+            using var db = _regionService.GetDatabaseContext(request.EndLat, request.EndLng);
+
+            // Chặn cập nhật nếu đang chạy bằng Replica
+            var dbName = db.Database.GetDbConnection().Database;
+            if (dbName.Contains("Rep"))
+            {
+                return StatusCode(503, new { Message = "Server chính sập, đang chạy bằng Replica (Chỉ đọc) nên không thể hoàn thành chuyến!" });
+            }
+
+            try
+            {
+                // Tìm chuyến đi
+                var trip = db.Trips.FirstOrDefault(t => t.TripId == request.TripId);
+                if (trip == null) return NotFound(new { Message = "Không tìm thấy chuyến đi!" });
+
+                // Cập nhật thông tin trả khách
+                trip.Status = "Completed";
+                trip.DropoffLat = request.EndLat;
+                trip.DropoffLng = request.EndLng;
+                trip.DropoffLocation = request.EndLat > 17 ? "Hà Nội" : "Sài Gòn";
+
+                // Giải phóng tài xế (cho IsAvailable = true)
+                var driver = db.Drivers.FirstOrDefault(d => d.DriverId == trip.DriverId);
+                if (driver != null) driver.IsAvailable = true;
+
+                db.SaveChanges();
+
+                return Ok(new { Message = "Hoàn thành chuyến thành công!" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Lỗi hệ thống: " + ex.Message });
+            }
+        }
+
+        // Cần định nghĩa class để hứng dữ liệu từ HTML
+        public class FinishRequest
+        {
+            public Guid TripId { get; set; }
+            public string Region { get; set; }
+            public double EndLat { get; set; }
+            public double EndLng { get; set; }
         }
     }
 

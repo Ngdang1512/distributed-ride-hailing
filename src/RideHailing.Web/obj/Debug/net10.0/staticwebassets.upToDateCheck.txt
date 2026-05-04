@@ -1,0 +1,2 @@
+wwwroot\index.html
+C:\Users\dell\source\repos\distributed-ride-hailing\src\RideHailing.Web\wwwroot\index.html

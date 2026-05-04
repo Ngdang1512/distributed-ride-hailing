@@ -11,6 +11,9 @@ namespace RideHailing.Web.Entities
         // public Guid UserId { get; set; } // Giả lập user
         public string PickupLocation { get; set; }
         // public string DropoffLocation { get; set; }
+        public string? DropoffLocation { get; set; }
+        public double? DropoffLat { get; set; }
+        public double? DropoffLng { get; set; }
         public string Status { get; set; } // Created, Accepted, Completed
         public DateTime CreatedDate { get; set; } = DateTime.Now;
     }

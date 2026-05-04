@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "RideHailing.Web.Controllers.BookingController",
+    "Method": "BookRide",
+    "RelativePath": "api/Booking/book",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "RideHailing.Web.Controllers.BookingRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RideHailing.Web.Controllers.BookingController",
+    "Method": "TestConnection",
+    "RelativePath": "api/Booking/test-connection",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\RideHailing_Infra",
+    "\\src\\RideHailing.Mobile",
+    "\\src\\RideHailing.Web"
+  ],
+  "SelectedNode": "\\RideHailing_Infra\\docker-compose.yml",
+  "PreviewInSolutionExplorer": false
+}

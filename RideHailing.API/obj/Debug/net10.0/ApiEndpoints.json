@@ -1,0 +1,92 @@
+[
+  {
+    "ContainingType": "RideHailing.API.Controllers.TripController",
+    "Method": "BookTrip",
+    "RelativePath": "api/mobile/Trip/book",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "RideHailing.API.Controllers.BookTripRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RideHailing.API.Controllers.TripController",
+    "Method": "CancelTrip",
+    "RelativePath": "api/mobile/Trip/cancel/{tripId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tripId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "currentLat",
+        "Type": "System.Double",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RideHailing.API.Controllers.TripController",
+    "Method": "GetHistory",
+    "RelativePath": "api/mobile/Trip/history/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "currentLat",
+        "Type": "System.Double",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RideHailing.API.Controllers.AdminController",
+    "Method": "GetAllTripsRegion",
+    "RelativePath": "api/web/Admin/all-trips",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "region",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RideHailing.API.Controllers.AdminController",
+    "Method": "CheckHealth",
+    "RelativePath": "api/web/Admin/health-check",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "region",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
